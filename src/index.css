@@ -1,13 +1,350 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --black: #010101;
+  --black-opacity: rgba(0, 0, 0, 0.4);
+  --white: #f1f1f1;
+  --white-opacity: rgba(255, 255, 255, 0.6);
+  --grey: rgb(58, 56, 56);
+  --red: rgb(236, 78, 78);
+  --blue: #22234d;
+  --violet: #796b93;
+  --pink: #efd4e7;
+  --yellow: rgb(255, 255, 128);
+
+  --SuperSmall: 10px;
+  --Small: 20px;
+  --Normal: 30px;
+  --Medium: 40px;
+  --Big: 60px;
+
+  --radiusSmall: 5px;
+  --radiusMedium: 15px;
+  --radiusBig: 25px;
+  --radiusRound: 50%;
+
+  --transition-duration: 0.3s;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  color: var(--white);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  min-height: calc(100vh - 130px);
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.Header,
+.Footer,
+.Box {
+  padding: var(--Small);
+  text-align: center;
+  background-color: var(--black-opacity);
+}
+
+@media (max-width: 576px) {
+  .Header h1 {
+    font-size: 25px;
+  }
+}
+
+.Footer {
+  width: 100%;
+  font-size: 12px;
+}
+
+.Box {
+  display: inline-block;
+  padding: var(--Normal);
+  margin: var(--Medium);
+  border-radius: var(--radiusMedium);
+}
+
+.Item {
+  position: relative;
+}
+
+.Item-review {
+  position: absolute;
+  top: 0;
+  left: -75px;
+  width: 350px;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.Item-closeReview {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.Item-horizontalBox {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+.Item-actionButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 250px;
+  padding: var(--SuperSmall);
+  border-radius: var(--radiusMedium);
+  background-color: var(--black-opacity);
+  z-index: 2;
+}
+
+.Item-actionButtons-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--black-opacity);
+  z-index: 1;
+}
+
+.Item-image {
+  max-height: 300px;
+  margin-top: var(--Medium);
+  margin-bottom: var(--Big);
+  padding: var(--padding);
+}
+
+.Item-image-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 200px;
+  overflow: hidden;
+}
+
+.Item-scoreBox {
+  margin-bottom: var(--Small);
+}
+
+.Star {
+  font-size: 2em;
+  color: var(--yellow);
+  transition: var(--transition-duration);
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+}
+
+.Form-input {
+  min-height: 30px;
+  width: 100%;
+  padding: var(--SuperSmall);
+  margin-top: var(--SuperSmall);
+  border-radius: var(--radiusSmall);
+  font-size: 16px;
+  font-family: Helvetica, Arial, serif;
+  outline: none;
+}
+
+.Form-textarea-wrapper {
+  position: relative;
+}
+
+.Form-symbolCount {
+  text-align: right;
+}
+
+.Form-message {
+  margin-top: var(--SuperSmall);
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.Form-file-input {
+  display: inline-block;
+  max-width: 200px;
+  padding: var(--SuperSmall) var(--Small);
+  border: 1px solid var(--white);
+  border-radius: var(--radiusSmall);
+  background-color: var(--violet);
+  transition: var(--transition-duration);
+  cursor: pointer;
+}
+
+.Form-image-name {
+  margin: var(--SuperSmall) 0 var(--Small) 0;
+}
+
+@media (min-width: 1200px) {
+  .Form-file-input:hover {
+    border: 1px solid var(--violet);
+    background-color: var(--white);
+    color: var(--violet);
+  }
+}
+
+.Form-activeControls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: var(--Small);
+}
+
+.Form-editButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.Button {
+  display: inline-block;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: var(--SuperSmall);
+  border: 1px solid var(--black);
+  border-radius: var(--radiusSmall);
+  text-align: center;
+  font-size: 14px;
+  background-color: var(--pink);
+  color: var(--black);
+  transition: var(--transition-duration);
+  cursor: pointer;
+}
+
+@media (min-width: 1200px) {
+  .Button:hover {
+    background-color: var(--violet);
+    color: var(--pink);
+    border-color: var(--pink);
+  }
+}
+
+.Button-huge {
+  padding: var(--SuperSmall) var(--Normal);
+  font-size: 18px;
+}
+
+.Button-delete {
+  background-color: var(--red);
+  border-color: var(--black);
+}
+
+.Button-fullWidth {
+  width: 100%;
+}
+
+.Form-discardChangesBtn {
+  background-color: var(--red);
+}
+
+.Form-saveChangesBtn {
+  background-color: rgb(55, 172, 114);
+  margin-left: var(--Small);
+}
+
+.Stats {
+  display: flex;
+  justify-content: space-between;
+  width: 55%;
+  font-weight: bold;
+  font-size: 18px;
+  color: var(--violet);
+}
+
+.Stats.reversed {
+  color: var(--white);
+}
+
+.Item-name {
+  margin-bottom: var(--SuperSmall);
+  font-weight: bold;
+}
+
+.ToggleTheme {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  width: 70px;
+  padding: var(--SuperSmall);
+  border-radius: var(--radiusBig);
+  background-color: var(--grey);
+  cursor: pointer;
+}
+
+.ToggleTheme-switch {
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  width: 27px;
+  height: 27px;
+  border-radius: var(--radiusRound);
+  background-color: var(--white-opacity);
+  transform: translateX(0);
+  transition: var(--transition-duration);
+}
+
+.ToggleTheme-switch.cliked {
+  transform: translateX(33px);
+}
+
+.ToggleTheme-icon {
+  color: var(--black);
+  z-index: 1;
+}
+
+@media (max-width: 576px) {
+  .Rating {
+    margin-top: var(--Normal);
+  }
+}
+
+.RatingList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 576px) {
+  .Box {
+    margin: var(--Medium) var(--SuperSmall);
+  }
+
+  .ToggleTheme {
+    display: none;
+  }
+
+  .Form-activeControls {
+    flex-direction: column;
+  }
+
+  .Stats {
+    width: 90%;
+  }
+}
+
+.no-reviews-info {
+  margin: var(--Medium);
 }
