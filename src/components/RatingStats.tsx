@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { RatingContext } from "../context/RatingContext";
 
 interface ImageObject {
-  file: string;
+  file: string | ArrayBuffer | null;
   name: string;
 }
 
@@ -11,7 +11,7 @@ interface Rating {
   name: string;
   anime: string;
   review: string;
-  score: number;
+  score?: number;
   image: ImageObject | null;
 }
 
@@ -20,7 +20,7 @@ function RatingStats() {
 
   let average =
     ratings.reduce((acc: number, cur: Rating) => {
-      return acc + cur.score;
+      return acc + cur.score!;
     }, 0) / ratings.length;
 
   average = Number(average.toFixed(1).replace(/[.,]0$/, ""));

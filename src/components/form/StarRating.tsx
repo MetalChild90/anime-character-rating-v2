@@ -1,36 +1,36 @@
 import { useState } from "react";
 import Star from "../Star";
 
-interface RatingProps {
+interface StarRatingProps {
   score: number;
   addScore: (newValue: number) => void;
 }
 
-function Rating({ addScore, score }: RatingProps) {
-  const [dynamicValue, setDynamicValue] = useState(0);
+function StarRating({ addScore, score = 0 }: StarRatingProps) {
+  const [dynamicValue, setDynamicValue] = useState<number>(0);
 
-  const colors = {
-    1: "#f44336",
-    2: "#FF5722",
-    3: "#FF9800",
-    4: "#FFC107",
-    5: "#FFEB3B",
+  const colors: string[] = [
+    "#f44336",
+    "#FF5722",
+    "#FF9800",
+    "#FFC107",
+    "#FFEB3B",
+  ];
+
+  const meanings: string[] = [
+    "Awful 🤮",
+    "Don't care 😒",
+    "Average 😐",
+    "Good 🙂",
+    "Fantastic 🔥",
+  ];
+
+  const handleClick = (newValue: number | undefined) => {
+    addScore(newValue!);
   };
 
-  const meanings = {
-    1: "Awful 🤮",
-    2: "Don't care 😒",
-    3: "Average 😐",
-    4: "Good 🙂",
-    5: "Fantastic 🔥",
-  };
-
-  const handleClick = (newValue: number) => {
-    addScore(newValue);
-  };
-
-  const handleMouseEnter = (tempValue: number) => {
-    setDynamicValue(tempValue);
+  const handleMouseEnter = (tempValue: number | undefined) => {
+    setDynamicValue(tempValue!);
   };
 
   const handleMouseLeave = () => {
@@ -44,7 +44,7 @@ function Rating({ addScore, score }: RatingProps) {
         <Star
           key={i}
           color={colors[score]}
-          isFilled={i + 1 <= dynamicValue}
+          isFilled={i + 1 <= dynamicValue!}
           value={i + 1}
           handleClick={handleClick}
           handleMouseEnter={handleMouseEnter}
@@ -56,8 +56,4 @@ function Rating({ addScore, score }: RatingProps) {
   );
 }
 
-Rating.defaultProps = {
-  score: 0,
-};
-
-export default Rating;
+export default StarRating;

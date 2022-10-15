@@ -5,9 +5,15 @@ import RatingItem from "./item/RatingItem";
 const RatingList = () => {
   const { ratings, reverse } = useContext(RatingContext);
 
+  let isReversed = "";
+
+  if (!reverse) {
+    isReversed = "#796b93";
+  }
+
   if (!ratings || ratings.length === 0) {
     return (
-      <p className="no-reviews-info" style={{ color: !reverse && "#796b93" }}>
+      <p className="no-reviews-info" style={{ color: isReversed }}>
         No charactes rated yet
       </p>
     );

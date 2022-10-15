@@ -1,11 +1,11 @@
-interface Props {
+interface FormInputProps {
   name: string;
   value: string;
   placeholder: string;
-  handleChange: () => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function FormInput({ name, value, placeholder, handleChange }: Props) {
+function FormInput({ name, value, placeholder, handleChange }: FormInputProps) {
   return (
     <input
       className="Form-input"

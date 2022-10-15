@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { RatingContext } from "../../context/RatingContext";
 
 interface ImageObject {
-  file: string;
+  file: string | ArrayBuffer | null;
   name: string;
 }
 
@@ -11,18 +11,21 @@ interface Rating {
   name: string;
   anime: string;
   review: string;
-  score: number;
+  score?: number;
   image: ImageObject | null;
 }
 
-
-interface Props {
+interface ActionsModalProps {
   item: Rating;
   toggleOpenModal: () => void;
   toggleShowReview: () => void;
 }
 
-function ActionsModal({ toggleOpenModal, toggleShowReview, item }: Props) {
+function ActionsModal({
+  toggleOpenModal,
+  toggleShowReview,
+  item,
+}: ActionsModalProps) {
   const { deleteRating, editRating } = useContext(RatingContext);
 
   const handleEditClick = () => {
@@ -32,7 +35,7 @@ function ActionsModal({ toggleOpenModal, toggleShowReview, item }: Props) {
 
   const handleDeleteClick = () => {
     toggleOpenModal();
-    deleteRating(item.id);
+    deleteRating(item.id!);
   };
 
   const handleShowReviewClick = () => {

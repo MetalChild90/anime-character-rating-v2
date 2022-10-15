@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { RatingContext } from "../../context/RatingContext";
 
-interface Props {
+interface FormButtonsProps {
   cleanForm: () => void;
 }
 
-function FormButtons({ cleanForm }: Props) {
+function FormButtons({ cleanForm }: FormButtonsProps) {
   const { edition, setEdition } = useContext(RatingContext);
 
   console.log(setEdition);

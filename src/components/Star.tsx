@@ -1,11 +1,11 @@
-interface Props {
-  value: number;
-  color: string;
-  handleClick: (value: number) => void;
-  handleMouseEnter: (value: number) => void;
-  handleMouseLeave: (value: number) => void;
+interface StarProps {
+  value?: number;
+  color: string | undefined;
+  handleClick?: (value: number | undefined) => void;
+  handleMouseEnter?: (value: number | undefined) => void;
+  handleMouseLeave?: (value: number | undefined) => void;
   isFilled: boolean;
-  clickable: boolean;
+  clickable?: boolean;
 }
 
 function Star({
@@ -16,14 +16,18 @@ function Star({
   handleMouseLeave,
   isFilled,
   clickable,
-}: Props) {
+}: StarProps) {
+  let isClickable = "";
+  if (clickable) {
+    isClickable = "pointer";
+  }
   return (
     <span
       className="Star"
-      style={{ color, cursor: clickable && "pointer" }}
-      onClick={() => handleClick(value)}
-      onMouseEnter={() => handleMouseEnter(value)}
-      onMouseLeave={() => handleMouseLeave(value)}
+      style={{ color, cursor: isClickable }}
+      onClick={() => handleClick!(value)}
+      onMouseEnter={() => handleMouseEnter!(value)}
+      onMouseLeave={() => handleMouseLeave!(value)}
     >
       {isFilled ? "★" : "☆"}
     </span>

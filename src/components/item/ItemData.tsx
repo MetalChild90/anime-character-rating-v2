@@ -1,5 +1,5 @@
 interface ImageObject {
-  file: string;
+  file: string | ArrayBuffer | null;
   name: string;
 }
 
@@ -8,15 +8,15 @@ interface Rating {
   name: string;
   anime: string;
   review: string;
-  score: number;
+  score?: number;
   image: ImageObject | null;
 }
 
-interface Props {
+interface ItemDataProps {
   item: Rating;
 }
 
-function ItemData({ item }: Props) {
+function ItemData({ item }: ItemDataProps) {
   return (
     <div>
       <p className="Item-name">{item.name}</p>

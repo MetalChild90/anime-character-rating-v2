@@ -3,7 +3,7 @@ import useToggle from "../hooks/useToggle";
 import { v4 as uuidv4 } from "uuid";
 
 interface ImageObject {
-  file: string;
+  file: string | ArrayBuffer | null;
   name: string;
 }
 
@@ -12,11 +12,11 @@ interface Rating {
   name: string;
   anime: string;
   review: string;
-  score: number;
+  score?: number;
   image: ImageObject | null;
 }
 
-interface Props {
+interface RatingProviderProps {
   children: React.ReactNode;
 }
 
@@ -27,7 +27,7 @@ type RatingContextObject = {
   updateRating: (id: string, item: Rating) => void;
   editRating: (item: Rating | null) => void;
   edition: { edit: boolean; item: Rating | null };
-  setEdition: ({edit: boolean; item: Rating | null}) => void;
+  setEdition: ({ edit, item }: { edit: boolean; item: Rating | null }) => void;
   reverse: boolean;
   toggleReverse: () => void;
 };
@@ -36,17 +36,20 @@ export const RatingContext = createContext<RatingContextObject>({
   ratings: [],
   addRating: () => {},
   deleteRating: (id: string) => {},
-  updateRating: (id: string, item: Rating) => {},
+  updateRating: (id: string | undefined, item: Rating) => {},
   editRating: (item: Rating | null) => {},
   edition: { edit: false, item: null },
-  setEdition: ({edit: false; item: Rating | null}) => {},
+  setEdition: ({ edit, item }: { edit: boolean; item: Rating | null }) => {},
   reverse: false,
   toggleReverse: () => {},
 });
 
-export const RatingProvider = ({ children }: Props) => {
+export const RatingProvider = ({ children }: RatingProviderProps) => {
   const [reverse, toggleReverse] = useToggle(true);
-  const [edition, setEdition] = useState({ edit: false, item: null });
+  const [edition, setEdition] = useState<{
+    edit: boolean;
+    item: Rating | null;
+  }>({ edit: false, item: null });
   const [ratings, setRatings] = useState([
     {
       id: "bb1f58a5-213f-489e-9895-c08fc355c868",

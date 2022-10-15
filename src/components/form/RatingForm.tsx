@@ -6,13 +6,27 @@ import FormInput from "./FormInput";
 import FormImageInput from "./FormImageInput";
 import FormButtons from "./FormButtons";
 
+interface ImageObject {
+  file: string | ArrayBuffer | null;
+  name: string;
+}
+
+interface Rating {
+  id?: string;
+  name: string;
+  anime: string;
+  review: string;
+  score?: number;
+  image: ImageObject | null;
+}
+
 function RatingForm() {
   const { addRating, updateRating, edition } = useContext(RatingContext);
   // const ratingsContext = useRatingsContext();
 
   console.log(edition);
 
-  const [rating, setRating] = useState({
+  const [rating, setRating] = useState<Rating>({
     name: "",
     anime: "",
     review: "",
@@ -21,29 +35,35 @@ function RatingForm() {
   });
 
   // eslint-disable-next-line
-  const [fileInputRef, setFileInputRef] = useState(null);
+  const [fileInputRef, setFileInputRef] = useState<HTMLInputElement | null>(
+    null
+  );
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     setMessage("");
     setRating({
-      name: edition.item!.name,
-      anime: edition.item!.anime,
-      review: edition.item!.review,
-      score: edition.item!.score,
-      image: edition.item!.image,
+      name: edition.item!?.name,
+      anime: edition.item!?.anime,
+      review: edition.item!?.review,
+      score: edition.item!?.score,
+      image: edition.item!?.image,
     });
   }, [edition]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setRating({ ...rating, [name]: value });
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (ref: React.ChangeEvent<HTMLInputElement>) => {
     setMessage("");
-    const { files } = e.target;
-    const file = files[0];
+    const { files } = ref.target;
+    const file = files![0];
 
     let reader = new FileReader();
     reader.readAsDataURL(file);
@@ -101,7 +121,7 @@ function RatingForm() {
       return;
     } else {
       if (edition.edit) {
-        updateRating(edition.item.id, rating);
+        updateRating(edition.item!.id!, rating);
       } else {
         addRating(rating);
       }
@@ -138,21 +158,20 @@ function RatingForm() {
         <div>
           <FormInput
             name="name"
-            value={rating.name || ""}
+            value={rating?.name || ""}
             placeholder="Character name"
             handleChange={handleChange}
           />
           <FormInput
             name="anime"
-            value={rating.anime || ""}
+            value={rating?.anime || ""}
             placeholder="Origin anime"
             handleChange={handleChange}
           />
           <textarea
             className="Form-input"
-            type="text"
             name="review"
-            value={rating.review || ""}
+            value={rating?.review || ""}
             onChange={handleChange}
             placeholder="What you like / dislike about character?"
             maxLength={300}
@@ -161,11 +180,12 @@ function RatingForm() {
         </div>
         <div className="Form-activeControls">
           <FormImageInput
+            rating={rating}
             handleImageChange={handleImageChange}
             setFileInputRef={setFileInputRef}
           />
           <StarRating
-            score={rating.score}
+            score={rating.score!}
             addScore={(value) => setRating({ ...rating, score: value })}
           />
         </div>

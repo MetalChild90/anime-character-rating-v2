@@ -1,7 +1,7 @@
 import Box from "../shared/Box";
 
 interface ImageObject {
-  file: string;
+  file: string | ArrayBuffer | null;
   name: string;
 }
 
@@ -10,16 +10,16 @@ interface Rating {
   name: string;
   anime: string;
   review: string;
-  score: number;
+  score?: number;
   image: ImageObject | null;
 }
 
-interface Props {
+interface ItemReviewProps {
   item: Rating;
   toggleShowReview: () => void;
 }
 
-function ItemReview({ toggleShowReview, item }: Props) {
+function ItemReview({ toggleShowReview, item }: ItemReviewProps) {
   return (
     <div className="Item-review">
       <span className="Item-closeReview" onClick={toggleShowReview}>

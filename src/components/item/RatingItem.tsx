@@ -1,5 +1,4 @@
 import { FiMoreHorizontal } from "react-icons/fi";
-import PropTypes from "prop-types";
 import Box from "../shared/Box";
 import useToggle from "../../hooks/useToggle";
 import ActionsModal from "./ActionsModal";
@@ -9,7 +8,7 @@ import ItemReview from "./ItemReview";
 import ItemData from "./ItemData";
 
 interface ImageObject {
-  file: string;
+  file: string | ArrayBuffer | null;
   name: string;
 }
 
@@ -18,15 +17,15 @@ interface Rating {
   name: string;
   anime: string;
   review: string;
-  score: number;
+  score?: number;
   image: ImageObject | null;
 }
 
-interface Props {
+interface RatingItemProps {
   item: Rating;
 }
 
-const RatingItem = ({ item }: Props) => {
+const RatingItem = ({ item }: RatingItemProps) => {
   const [openModal, toggleOpenModal] = useToggle(false);
   const [showReview, toggleShowReview] = useToggle(false);
 
@@ -44,7 +43,7 @@ const RatingItem = ({ item }: Props) => {
       </div>
       <div className="Item">
         <ItemImage item={item} />
-        <ItemScore item={item} />
+        <ItemScore value={item.score} />
         <ItemData item={item} />
         {showReview && (
           <ItemReview toggleShowReview={toggleShowReview} item={item} />
@@ -52,10 +51,6 @@ const RatingItem = ({ item }: Props) => {
       </div>
     </Box>
   );
-};
-
-RatingItem.propTypes = {
-  item: PropTypes.object.isRequired,
 };
 
 export default RatingItem;

@@ -1,6 +1,6 @@
 import defaultImage from "../../assets/images/defaultimage.png";
 interface ImageObject {
-  file: string;
+  file: string | ArrayBuffer | null;
   name: string;
 }
 
@@ -9,22 +9,22 @@ interface Rating {
   name: string;
   anime: string;
   review: string;
-  score: number;
+  score?: number;
   image: ImageObject | null;
 }
 
-interface Props {
+interface ItemImageProps {
   item: Rating;
 }
 
-function ItemImage({ item }: Props) {
+function ItemImage({ item }: ItemImageProps) {
   return (
     <div className="Item-image-box">
       <img
-        src={item.image.file ? item.image.file : defaultImage}
+        src={item.image!.file ? item.image!.file : defaultImage}
         alt={item.name ? item.name : "Default Image"}
         className="Item-image"
-        style={{ width: item.image.file ? "auto" : "200px" }}
+        style={{ width: item.image!.file ? "auto" : "200px" }}
       />
     </div>
   );
