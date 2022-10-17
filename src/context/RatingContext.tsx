@@ -1,33 +1,26 @@
 import { createContext, useState, useEffect } from "react";
 import useToggle from "../hooks/useToggle";
+import { RatingInterface } from "../Interfaces";
 import { v4 as uuidv4 } from "uuid";
-
-interface ImageObject {
-  file: string | ArrayBuffer | null;
-  name: string;
-}
-
-interface Rating {
-  id?: string;
-  name: string;
-  anime: string;
-  review: string;
-  score?: number;
-  image: ImageObject | null;
-}
 
 interface RatingProviderProps {
   children: React.ReactNode;
 }
 
 type RatingContextObject = {
-  ratings: Rating[];
-  addRating: (newRating: Rating) => void;
+  ratings: RatingInterface[];
+  addRating: (newRating: RatingInterface) => void;
   deleteRating: (id: string) => void;
-  updateRating: (id: string, item: Rating) => void;
-  editRating: (item: Rating | null) => void;
-  edition: { edit: boolean; item: Rating | null };
-  setEdition: ({ edit, item }: { edit: boolean; item: Rating | null }) => void;
+  updateRating: (id: string, item: RatingInterface) => void;
+  editRating: (item: RatingInterface | null) => void;
+  edition: { edit: boolean; item: RatingInterface | null };
+  setEdition: ({
+    edit,
+    item,
+  }: {
+    edit: boolean;
+    item: RatingInterface | null;
+  }) => void;
   reverse: boolean;
   toggleReverse: () => void;
 };
@@ -36,10 +29,16 @@ export const RatingContext = createContext<RatingContextObject>({
   ratings: [],
   addRating: () => {},
   deleteRating: (id: string) => {},
-  updateRating: (id: string | undefined, item: Rating) => {},
-  editRating: (item: Rating | null) => {},
+  updateRating: (id: string | undefined, item: RatingInterface) => {},
+  editRating: (item: RatingInterface | null) => {},
   edition: { edit: false, item: null },
-  setEdition: ({ edit, item }: { edit: boolean; item: Rating | null }) => {},
+  setEdition: ({
+    edit,
+    item,
+  }: {
+    edit: boolean;
+    item: RatingInterface | null;
+  }) => {},
   reverse: false,
   toggleReverse: () => {},
 });
@@ -48,9 +47,9 @@ export const RatingProvider = ({ children }: RatingProviderProps) => {
   const [reverse, toggleReverse] = useToggle(true);
   const [edition, setEdition] = useState<{
     edit: boolean;
-    item: Rating | null;
+    item: RatingInterface | null;
   }>({ edit: false, item: null });
-  const [ratings, setRatings] = useState([
+  const [ratings, setRatings] = useState<RatingInterface[]>([
     {
       id: "bb1f58a5-213f-489e-9895-c08fc355c868",
       anime: "xxxholic",
@@ -70,7 +69,7 @@ export const RatingProvider = ({ children }: RatingProviderProps) => {
     document.body.style.backgroundColor = color;
   }, [reverse]);
 
-  const addRating = (newRating: Rating) => {
+  const addRating = (newRating: RatingInterface) => {
     newRating.id = uuidv4();
     setRatings([newRating, ...ratings]);
   };
@@ -80,14 +79,14 @@ export const RatingProvider = ({ children }: RatingProviderProps) => {
     setEdition({ edit: false, item: null });
   };
 
-  const updateRating = (id: string, updItem: Rating) => {
+  const updateRating = (id: string, updItem: RatingInterface) => {
     setRatings(
       ratings.map((item) => (item.id === id ? { ...updItem, id } : item))
     );
     setEdition({ edit: false, item: null });
   };
 
-  const editRating = (item: Rating | null) => {
+  const editRating = (item: RatingInterface | null) => {
     setEdition({ edit: true, item });
   };
 

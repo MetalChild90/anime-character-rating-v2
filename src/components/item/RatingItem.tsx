@@ -1,4 +1,5 @@
 import { FiMoreHorizontal } from "react-icons/fi";
+import { RatingInterface } from "../../Interfaces";
 import Box from "../shared/Box";
 import useToggle from "../../hooks/useToggle";
 import ActionsModal from "./ActionsModal";
@@ -7,22 +8,8 @@ import ItemImage from "./ItemImage";
 import ItemReview from "./ItemReview";
 import ItemData from "./ItemData";
 
-interface ImageObject {
-  file: string | ArrayBuffer | null;
-  name: string;
-}
-
-interface Rating {
-  id?: string;
-  name: string;
-  anime: string;
-  review: string;
-  score?: number;
-  image: ImageObject | null;
-}
-
 interface RatingItemProps {
-  item: Rating;
+  item: RatingInterface;
 }
 
 const RatingItem = ({ item }: RatingItemProps) => {

@@ -1,22 +1,9 @@
 import { useContext } from "react";
 import { RatingContext } from "../../context/RatingContext";
-
-interface ImageObject {
-  file: string | ArrayBuffer | null;
-  name: string;
-}
-
-interface Rating {
-  id?: string;
-  name: string;
-  anime: string;
-  review: string;
-  score?: number;
-  image: ImageObject | null;
-}
+import { RatingInterface } from "../../Interfaces";
 
 interface ActionsModalProps {
-  item: Rating;
+  item: RatingInterface;
   toggleOpenModal: () => void;
   toggleShowReview: () => void;
 }

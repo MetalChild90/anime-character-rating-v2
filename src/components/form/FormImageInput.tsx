@@ -1,22 +1,9 @@
 import { BsFillFileEarmarkArrowUpFill } from "react-icons/bs";
-
-interface ImageObject {
-  file: string | ArrayBuffer | null;
-  name: string;
-}
-
-interface Rating {
-  id?: string;
-  name: string;
-  anime: string;
-  review: string;
-  score?: number;
-  image: ImageObject | null;
-}
+import { RatingInterface } from "../../Interfaces";
 
 interface FormImageInputProps {
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  rating: Rating;
+  rating: RatingInterface;
   setFileInputRef: (ref: HTMLInputElement | null) => void;
 }
 
@@ -38,6 +25,7 @@ function FormImageInput({
         }}
         multiple={false}
         id="fileControl"
+        accept=".jpg,.png,.jpeg"
       />
       {rating?.image?.name && (
         <p className="Form-image-name">{rating?.image?.name}</p>

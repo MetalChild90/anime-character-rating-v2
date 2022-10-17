@@ -1,20 +1,8 @@
 import defaultImage from "../../assets/images/defaultimage.png";
-interface ImageObject {
-  file: string | ArrayBuffer | null;
-  name: string;
-}
-
-interface Rating {
-  id?: string;
-  name: string;
-  anime: string;
-  review: string;
-  score?: number;
-  image: ImageObject | null;
-}
+import { RatingInterface } from "../../Interfaces";
 
 interface ItemImageProps {
-  item: Rating;
+  item: RatingInterface;
 }
 
 function ItemImage({ item }: ItemImageProps) {

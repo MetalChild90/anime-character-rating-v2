@@ -39,11 +39,11 @@ function StarRating({ addScore, score = 0 }: StarRatingProps) {
 
   return (
     <div className="Rating">
-      <p>{score ? meanings[score] : "Not Rated Yet"}</p>
+      <p>{score ? meanings[score - 1] : "Not Rated Yet"}</p>
       {Array.from({ length: 5 }, (_, i) => (
         <Star
           key={i}
-          color={colors[score]}
+          color={colors[score - 1]}
           isFilled={i + 1 <= dynamicValue!}
           value={i + 1}
           handleClick={handleClick}

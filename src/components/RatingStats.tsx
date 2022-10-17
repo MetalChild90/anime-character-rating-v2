@@ -1,25 +1,12 @@
 import { useContext } from "react";
 import { RatingContext } from "../context/RatingContext";
-
-interface ImageObject {
-  file: string | ArrayBuffer | null;
-  name: string;
-}
-
-interface Rating {
-  id?: string;
-  name: string;
-  anime: string;
-  review: string;
-  score?: number;
-  image: ImageObject | null;
-}
+import { RatingInterface } from "../Interfaces";
 
 function RatingStats() {
   const { ratings, reverse } = useContext(RatingContext);
 
   let average =
-    ratings.reduce((acc: number, cur: Rating) => {
+    ratings.reduce((acc: number, cur: RatingInterface) => {
       return acc + cur.score!;
     }, 0) / ratings.length;
 

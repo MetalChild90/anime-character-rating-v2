@@ -6,7 +6,6 @@ const RatingList = () => {
   const { ratings, reverse } = useContext(RatingContext);
 
   let isReversed = "";
-
   if (!reverse) {
     isReversed = "#796b93";
   }
@@ -21,9 +20,9 @@ const RatingList = () => {
 
   return (
     <div className="RatingList">
-      {ratings.map((item) => {
-        return <RatingItem key={item.id} item={item} />;
-      })}
+      {ratings.map((item) => (
+        <RatingItem key={item.id} item={item} />
+      ))}
     </div>
   );
 };

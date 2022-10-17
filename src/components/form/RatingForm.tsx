@@ -1,32 +1,18 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { RatingContext } from "../../context/RatingContext";
+import { RatingInterface } from "../../Interfaces";
 import Box from "../shared/Box";
 import StarRating from "./StarRating";
 import FormInput from "./FormInput";
 import FormImageInput from "./FormImageInput";
 import FormButtons from "./FormButtons";
 
-interface ImageObject {
-  file: string | ArrayBuffer | null;
-  name: string;
-}
-
-interface Rating {
-  id?: string;
-  name: string;
-  anime: string;
-  review: string;
-  score?: number;
-  image: ImageObject | null;
-}
-
 function RatingForm() {
   const { addRating, updateRating, edition } = useContext(RatingContext);
-  // const ratingsContext = useRatingsContext();
 
   console.log(edition);
 
-  const [rating, setRating] = useState<Rating>({
+  const [rating, setRating] = useState<RatingInterface>({
     name: "",
     anime: "",
     review: "",
@@ -57,7 +43,7 @@ function RatingForm() {
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setRating({ ...rating, [name]: value });
+    setRating({ ...rating, [name]: value.trim() });
   };
 
   const handleImageChange = (ref: React.ChangeEvent<HTMLInputElement>) => {
